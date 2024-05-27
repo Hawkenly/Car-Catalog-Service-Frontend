@@ -1,11 +1,9 @@
-FROM node:18-alpine
+FROM node:18-alpine as build
 
 ARG REACT_APP_API_URL
 ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
 WORKDIR /app
-
-EXPOSE 3000
 
 COPY ["package.json", "package-lock.json*", "./"]
 
@@ -13,4 +11,13 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "start"]
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Экспортируем порт 80
+EXPOSE 3000
+
+CMD ["nginx", "-g", "daemon off;"]
