@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios";
 import {Link, useParams} from "react-router-dom";
+import API_URL from "../config";
 
 export default function Models() {
 
@@ -27,7 +28,7 @@ export default function Models() {
     }, [])
 
     const loadCar = async ()=>{
-        await axios.get(`http://localhost:8080/cars?id=${carId}`)
+        await axios.get(`${API_URL}/cars?id=${carId}`)
             .then(function (response){
                 console.log(response);
                 setCar(response.data);
@@ -35,7 +36,7 @@ export default function Models() {
     };
 
     const deleteModel = async (carId, modelId) => {
-        await axios.delete(`http://localhost:8080/models/delete?id=${modelId}`);
+        await axios.delete(`${API_URL}/models/delete?id=${modelId}`);
         loadCar();
     }
 

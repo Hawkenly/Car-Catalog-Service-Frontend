@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import axios from "axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
+import API_URL from "../config";
 
 export default function AddCar() {
 
@@ -21,8 +22,8 @@ export default function AddCar() {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const result = await axios.post("http://localhost:8080/models/add", model)
-            await axios.post(`http://localhost:8080/cars/${carId}/models/${result.data.id}/add`)
+            const result = await axios.post(`${API_URL}/models/add`, model)
+            await axios.post(`${API_URL}/cars/${carId}/models/${result.data.id}/add`)
                 .then(function (response) {
                     console.log(response);
                 });

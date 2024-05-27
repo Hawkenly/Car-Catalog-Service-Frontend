@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
+import API_URL from "../config";
 
 export default function ViewCar() {
 
@@ -27,7 +28,7 @@ export default function ViewCar() {
     }, []);
 
     const loadCar = async () => {
-        await axios.get(`http://localhost:8080/cars?id=${carId}`)
+        await axios.get(`${API_URL}/cars?id=${carId}`)
             .then(function (response){
                 console.log(response);
                 setCar(response.data);

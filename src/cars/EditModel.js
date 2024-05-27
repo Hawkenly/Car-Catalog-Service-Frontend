@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
+import API_URL from "../config";
 
 export default function EditModel() {
 
@@ -25,7 +26,7 @@ export default function EditModel() {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:8080/models/update?id=${modelId}`, model)
+            await axios.put(`${API_URL}/models/update?id=${modelId}`, model)
                 .then(function (response) {
                     console.log(response);
                 })
@@ -36,7 +37,7 @@ export default function EditModel() {
     };
 
     const loadModel = async () => {
-        await axios.get(`http://localhost:8080/models?id=${modelId}`)
+        await axios.get(`${API_URL}/models?id=${modelId}`)
             .then(function (response) {
                 console.log(response);
                 setModel(response.data);

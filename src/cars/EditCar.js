@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
+import API_URL from "../config";
 
 export default function EditCar() {
 
@@ -27,7 +28,7 @@ export default function EditCar() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:8080/cars/update?id=${carId}`, car)
+        await axios.put(`${API_URL}/cars/update?id=${carId}`, car)
             .then(function (response ){
                 console.log(response);
             })
@@ -35,7 +36,7 @@ export default function EditCar() {
     };
 
     const loadCar = async () => {
-        await axios.get(`http://localhost:8080/cars?id=${carId}`)
+        await axios.get(`${API_URL}/cars?id=${carId}`)
             .then(function (response){
                 console.log(response);
                 setCar(response.data);
