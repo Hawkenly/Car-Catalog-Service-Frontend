@@ -11,4 +11,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: curl ${{secrets.RENDER_DEPLOY_HOOK}}
+      - name: Trigger Render deploy hook
+        run: curl ${{secrets.RENDER_DEPLOY_HOOK}}
