@@ -5,13 +5,16 @@ ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
 WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm install && \
-    npm cache clean --force
+COPY package.json package-lock.json* ./
+RUN npm install
 
 COPY . .
+RUN npm run build
 
-EXPOSE 3000
+FROM nginx:alpine
 
-CMD ["npm", "start"]
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
