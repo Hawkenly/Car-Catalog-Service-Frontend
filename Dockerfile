@@ -28,8 +28,5 @@ COPY --from=build /app/build /usr/share/nginx/html
 # Открываем порт 3000 для входящих соединений
 EXPOSE 3000
 
-# Настраиваем NGINX на использование порта 3000
-RUN sed -i 's/80/3000/g' /etc/nginx/conf.d/default.conf
-
 # Запускаем NGINX
 CMD ["nginx", "-g", "daemon off;"]
